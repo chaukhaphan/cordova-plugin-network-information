@@ -81,6 +81,7 @@ public class NetworkManager extends CordovaPlugin {
     public static final String TYPE_NONE = "none";
 
     private static final String LOG_TAG = "NetworkManager";
+    public static boolean NETWORK_IS_ON = false;
 
     private CallbackContext connectionCallbackContext;
 
@@ -243,6 +244,7 @@ public class NetworkManager extends CordovaPlugin {
         String type = TYPE_NONE;
         String extraInfo = "";
         if (info != null) {
+            NETWORK_IS_ON = true;
             // If we are not connected to any network set type to none
             if (!info.isConnected()) {
                 type = TYPE_NONE;
@@ -251,6 +253,10 @@ public class NetworkManager extends CordovaPlugin {
                 type = getType(info);
             }
             extraInfo = info.getExtraInfo();
+        }
+        else
+        {
+            NETWORK_IS_ON = false;
         }
 
         LOG.d(LOG_TAG, "Connection Type: " + type);
